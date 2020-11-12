@@ -1,6 +1,6 @@
 {
   "name": "vivo-dl",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "download videos from vivo.sx",
   "author": "alfagun74",
   "homepage": "alfagun74.de",
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/npm/cli.git"
+    "url": "https://alfagun74.de/gitea/alfagun74/vivo-dl"
   },
   "main": "lib/download.js",
   "engines": {
