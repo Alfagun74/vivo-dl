@@ -56,6 +56,7 @@ async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
 
 async function downloadVideos(videos: Video[], destinationFolder: string) {
   if (!destinationFolder) {
+    console.log('✨ Fetched the video URIs}');
     return;
   }
   console.log('▶ Starting video downloads');
