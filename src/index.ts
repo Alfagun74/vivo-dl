@@ -29,7 +29,7 @@ export async function vivodl(
 async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
   console.log('▶ Fetching all video sources');
   const videos: Video[] = [];
-  const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch({headless: false});
   const context = await browser.createIncognitoBrowserContext();
   await Promise.all(
     vivoUrls.map(async (vivoUrl: string) => {
@@ -62,6 +62,9 @@ async function downloadVideos(videos: Video[], destinationFolder: string) {
   destinationFolder = stripPath(destinationFolder);
   await Promise.all(
     videos.map(async video => {
+      console.log(
+        `▶ Downloading video ${video.filename} from ${video.vivoUrl}`
+      );
       const dest = `${destinationFolder}/${video.filename}`;
       const response = await fetch(video.videoUrl);
       await fs.promises.writeFile(dest, await response.buffer());
