@@ -34,7 +34,6 @@ async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
   await Promise.all(
     vivoUrls.map(async (vivoUrl: string) => {
       const page = await context.newPage();
-      //await page.setRequestInterception(true);
       await page.goto(vivoUrl);
       await Promise.all([
         page.waitForSelector('div.stream-content'),
