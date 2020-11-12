@@ -20,8 +20,7 @@ export async function vivodl(
     videos = await fetchVideoSources(vivoUrls);
     await downloadVideos(videos, destinationFolder);
   } catch (error) {
-    console.error(error);
-    //throw error;
+    console.error(`❌ It seems like something went wrong: ${error}`);
   }
   return videos;
 }
@@ -67,13 +66,19 @@ async function downloadVideos(videos: Video[], destinationFolder: string) {
       );
       const dest = `${destinationFolder}/${video.filename}`;
       const response = await fetch(video.videoUrl);
-      await fs.promises.writeFile(dest, await response.buffer());
-      console.log(
-        `✔ Downloaded video ${video.filename} from ${video.vivoUrl} to ${dest}`
-      );
+      try {
+        await fs.promises.writeFile(dest, await response.buffer());
+        console.log(
+          `✔ Downloaded video ${video.filename} from ${video.vivoUrl}`
+        );
+      } catch (error) {
+        console.error(
+          `❌ Failed to download video ${video.filename} from ${video.vivoUrl}: ${error}`
+        );
+      }
     })
   );
-  console.log(`✨ Downloaded all videos to ${destinationFolder}`);
+  console.log(`✨ Downloaded videos to ${destinationFolder}`);
 }
 
 function stripPath(path: string): string {
