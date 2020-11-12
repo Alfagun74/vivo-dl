@@ -5,6 +5,12 @@
   "author": "alfagun74",
   "homepage": "alfagun74.de",
   "license": "MIT",
+  "keywords": [
+    "vivo.sx",
+    "download",
+    "video",
+    "vivo"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/npm/cli.git"
