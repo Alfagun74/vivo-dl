@@ -28,7 +28,7 @@ export async function vivodl(
 async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
   console.log("▶ Fetching all video sources");
   const videos: Video[] = [];
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: true });
   const context = await browser.createIncognitoBrowserContext();
   await Promise.all(
     vivoUrls.map(async (vivoUrl: string) => {
