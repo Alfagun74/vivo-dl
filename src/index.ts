@@ -4,12 +4,6 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import cheerio from "cheerio";
 import { Video } from "./models/video";
 import puppeteer from "puppeteer-extra";
-puppeteer.use(StealthPlugin());
-puppeteer.use(
-  require("puppeteer-extra-plugin-block-resources")({
-    blockedTypes: new Set(["image", "stylesheet", "font"]),
-  })
-);
 
 export async function vivodl(
   destinationFolder = "",
@@ -28,6 +22,10 @@ export async function vivodl(
 async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
   console.log("▶ Fetching all video sources");
   const videos: Video[] = [];
+  puppeteer.use(StealthPlugin());
+  puppeteer.use(require("puppeteer-extra-plugin-block-resources")({
+    blockedTypes: new Set(["image", "stylesheet", "font"]),
+  }));
   const browser = await puppeteer.launch({ headless: true });
   const context = await browser.createIncognitoBrowserContext();
   await Promise.all(
