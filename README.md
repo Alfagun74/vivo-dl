@@ -30,10 +30,10 @@ vivodl('./dest', [
   console.log(videos);
 });
 ```
-#### Optional Parameters
+### Optional Parameters
 * If you just want to fetch the video source URIs and do not want to download them just provide an empty path
 
-#### Data
+### Data
 A Video is a data model that contains the following attributes:
 ```ts
 {
