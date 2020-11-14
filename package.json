@@ -1,10 +1,12 @@
 {
   "name": "vivo-dl",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "download videos from vivo.sx",
   "author": "alfagun74",
   "homepage": "https://alfagun74.de",
   "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "keywords": [
     "vivo.sx",
     "download",
@@ -15,7 +17,6 @@
     "type": "git",
     "url": "https://github.com/Alfagun74/vivo-dl"
   },
-  "main": "build/download.js",
   "engines": {
     "node": ">=11.14.0"
   },
