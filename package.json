@@ -23,13 +23,11 @@
   "scripts": {
     "start": "npm run test",
     "test": "node build/src/test.js",
-    "lint": "gts lint",
     "clean": "gts clean",
-    "compile": "tsc",
+    "compile": "tsc -b",
     "fix": "gts fix",
     "prepare": "npm.cmd run compile",
-    "pretest": "npm.cmd run compile",
-    "posttest": "npm.cmd run lint"
+    "pretest": "npm.cmd run compile"
   },
   "dependencies": {
     "@types/cheerio": "^0.22.22",
@@ -43,8 +41,6 @@
     "puppeteer-extra-plugin-stealth": "^2.6.5"
   },
   "devDependencies": {
-    "eslint": "^7.13.0",
-    "gts": "^3.0.2",
     "ts-node-dev": "^1.0.0",
     "typescript": "^4.0.3"
   }
