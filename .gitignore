@@ -18,5 +18,5 @@ logs
 node_modules
 
 # default output
-build
-dest
+/dest
+/lib

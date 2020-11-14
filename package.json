@@ -1,12 +1,13 @@
 {
   "name": "vivo-dl",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "download videos from vivo.sx",
   "author": "alfagun74",
   "homepage": "https://alfagun74.de",
   "license": "MIT",
-  "main": "build/index",
-  "types": "build/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": ["lib/**/*"],
   "keywords": [
     "vivo.sx",
     "download",
@@ -21,8 +22,8 @@
     "node": ">=11.14.0"
   },
   "scripts": {
-    "start": "npm run test",
-    "test": "node build/test.js",
+    "start": "npm test",
+    "test": "node lib/test.js",
     "clean": "gts clean",
     "compile": "tsc -b",
     "fix": "gts fix",
