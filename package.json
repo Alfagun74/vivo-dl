@@ -1,6 +1,6 @@
 {
   "name": "vivo-dl",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "download videos from vivo.sx",
   "author": "alfagun74",
   "homepage": "https://alfagun74.de",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "npm run test",
-    "test": "node build/src/test.js",
+    "test": "node build/test.js",
     "clean": "gts clean",
     "compile": "tsc -b",
     "fix": "gts fix",
