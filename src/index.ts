@@ -4,6 +4,7 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import cheerio from "cheerio";
 import {Video} from "./models/video";
 import puppeteer from "puppeteer-extra";
+import mkdirp from "mkdirp";
 
 export async function vivodl(
     destinationFolder = "",
@@ -12,7 +13,7 @@ export async function vivodl(
     let videos: Video[] = [];
     try {
         if (!fs.existsSync(destinationFolder)) {
-            fs.mkdirSync(destinationFolder);
+            await mkdirp(destinationFolder);
         }
         videos = await fetchVideoSources(vivoUrls);
         await downloadVideos(videos, destinationFolder);
