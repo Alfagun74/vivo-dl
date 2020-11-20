@@ -26,9 +26,7 @@
   "scripts": {
     "start": "npm test",
     "test": "node lib/test.js",
-    "clean": "gts clean",
     "compile": "tsc -b",
-    "fix": "gts fix",
     "prepare": "npm.cmd run compile",
     "pretest": "npm.cmd run compile"
   },

@@ -36,11 +36,20 @@ async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
     await Promise.all(
         vivoUrls.map(async (vivoUrl: string) => {
             const page = await context.newPage();
+            if (!vivoUrl.includes("vivo.sx")) {
+                console.log(`⚠ Skipping ${vivoUrl} because it is not a valid vivo url.`);
+                return;
+            }
             await page.goto(vivoUrl);
-            await Promise.all([
-                page.waitForSelector("div.stream-content", {timeout: 60000}),
-                page.waitForSelector("source", {timeout: 60000}),
-            ]);
+            try {
+                await Promise.all([
+                    page.waitForSelector("div.stream-content", {timeout: 60000}),
+                    page.waitForSelector("source", {timeout: 60000}),
+                ]);
+            } catch (error) {
+                console.log(`⚠ Skipping ${vivoUrl} because the video could not be found.`);
+                return;
+            }
             const $ = cheerio.load(
                 await page.evaluate(() => document.body.innerHTML)
             );
@@ -51,17 +60,18 @@ async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
         })
     );
     await browser.close();
-    console.log("✔ Fetched all video sources");
+    console.log(`✔ Fetched ${videos.length} video sources`);
     return videos;
 }
 
-async function downloadVideos(videos: Video[], destinationFolder: string) {
-    if (!destinationFolder) {
+async function downloadVideos(videos: Video[], destinationFolder: string = "") {
+    if (destinationFolder == "") {
         console.log("✨ Fetched the video URIs}");
         return;
     }
     console.log("▶ Starting video downloads");
     destinationFolder = stripPath(destinationFolder);
+    let downloadedVideos = 0;
     await Promise.all(
         videos.map(async video => {
             console.log(
@@ -72,16 +82,16 @@ async function downloadVideos(videos: Video[], destinationFolder: string) {
             try {
                 await fs.promises.writeFile(dest, await response.buffer());
                 console.log(
-                    `✔ Downloaded video ${video.filename} from ${video.vivoUrl}`
+                    `✔ Downloaded video (${++downloadedVideos}/${videos.length}) ${video.filename} from ${video.vivoUrl}`
                 );
             } catch (error) {
                 console.error(
-                    `❌ Failed to download video ${video.filename} from ${video.vivoUrl}: ${error}`
+                    `❌ Failed to download video (${++downloadedVideos}/${videos.length}) ${video.filename} from ${video.vivoUrl}: ${error}`
                 );
             }
         })
     );
-    console.log(`✨ Downloaded videos to ${destinationFolder}`);
+    console.log(`✨ Downloaded ${downloadedVideos} of ${videos.length} videos to ${destinationFolder}`);
 }
 
 function stripPath(path: string): string {
