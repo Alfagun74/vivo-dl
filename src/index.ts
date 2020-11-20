@@ -37,8 +37,8 @@ async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
             const page = await context.newPage();
             await page.goto(vivoUrl);
             await Promise.all([
-                page.waitForSelector("div.stream-content"),
-                page.waitForSelector("source"),
+                page.waitForSelector("div.stream-content", {timeout: 60000}),
+                page.waitForSelector("source", {timeout: 60000}),
             ]);
             const $ = cheerio.load(
                 await page.evaluate(() => document.body.innerHTML)
