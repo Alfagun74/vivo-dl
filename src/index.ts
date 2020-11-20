@@ -17,6 +17,7 @@ export async function vivodl(
         }
         videos = await fetchVideoSources(vivoUrls);
         await downloadVideos(videos, destinationFolder);
+        fs.writeFileSync(destinationFolder + "/resources.json", JSON.stringify(videos, null, 2));
     } catch (error) {
         console.error(`❌ It seems like something went wrong: ${error}`);
     }
