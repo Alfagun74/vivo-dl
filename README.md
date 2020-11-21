@@ -3,13 +3,11 @@
 ### Description
 vivo-dl is a module that can download .mp4 files from [vivo.sx](https://vivo.sx).
 Just provide a path and some [vivo.sx](https://vivo.sx) urls and it downloads the videos.
-
 ### List of features
 *   simple
 *   asynchronous
 *   fast
 *   supports typescript
-
 ### Installation
 #### Using NPM
 ```shell 
@@ -19,7 +17,6 @@ $ npm i vivo-dl
 ```shell 
 $ yarn add vivo-dl
 ```
-
 ### Usage
 Just call the vivodl function with a destination folder and an array of URLS and it will download the files to your given destination and then return a ```Promise<Video[]>```.
 
@@ -33,7 +30,6 @@ vivodl('./dest', [
 ```
 #### Optional Parameters
 * If you just want to fetch the video source URIs and do not want to download them just provide an empty path
-
 #### Data
 A Video is a data model that contains the following attributes:
 ```ts
@@ -43,8 +39,9 @@ A Video is a data model that contains the following attributes:
   vivoUrl: string;    // the vivo.sx url you provided
 }
 ```
+#### Error-Handling
+If the video could not be found or the URL is invalid it will spit out a warning and skip the video.
 ### Contributing
 Everyone is welcome to contibute, to help this project.
-
 ### License
 This project is licensed under the MIT License
