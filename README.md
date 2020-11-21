@@ -1,5 +1,5 @@
 # vivo-dl
-## a node.js vivo.sx video downloader
+## A node.js vivo.sx video downloader
 ### Description
 vivo-dl is a module that can download .mp4 files from [vivo.sx](https://vivo.sx).
 Just provide a path and some [vivo.sx](https://vivo.sx) urls and it downloads the videos.
