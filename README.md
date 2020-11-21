@@ -42,6 +42,6 @@ A Video is a data model that contains the following attributes:
 #### Error-Handling
 If the video could not be found or the URL is invalid it will spit out a warning and skip the video.
 ### Contributing
-Everyone is welcome to contibute, to help this project.
+Everyone is welcome to contribute, to help this project.
 ### License
 This project is licensed under the MIT License
