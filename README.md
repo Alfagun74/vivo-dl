@@ -20,7 +20,7 @@ $ yarn add vivo-dl
 ```
 
 ### Usage
-just call the vivodl function with a destination folder and an array of URLS and it will download the files to your given destination and then return a ```Promise<Video[]>```.
+Just call the vivodl function with a destination folder and an array of URLS and it will download the files to your given destination and then return a ```Promise<Video[]>```.
 
 ```ts
 vivodl('./dest', [
