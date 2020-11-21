@@ -11,10 +11,11 @@ Just provide a path and some [vivo.sx](https://vivo.sx) urls and it downloads th
 *   supports typescript
 
 ### Installation
+#### Using NPM
 ```shell 
 $ npm i vivo-dl
 ```
-
+#### Using Yarn
 ```shell 
 $ yarn add vivo-dl
 ```
