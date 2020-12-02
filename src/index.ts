@@ -2,9 +2,10 @@ import * as fs from "fs";
 import fetch from "node-fetch";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import cheerio from "cheerio";
-import {Video} from "./models/video";
+import { Video } from "./models/video";
 import puppeteer from "puppeteer-extra";
 import mkdirp from "mkdirp";
+import { Page } from "puppeteer";
 
 export async function vivodl(
     destinationFolder = "",
@@ -28,14 +29,12 @@ async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
     console.log("▶ Fetching all video sources");
     const videos: Video[] = [];
     puppeteer.use(StealthPlugin());
-    puppeteer.use(require("puppeteer-extra-plugin-block-resources")({
-        blockedTypes: new Set(["image", "stylesheet", "font"]),
-    }));
-    const browser = await puppeteer.launch({headless: true});
+    const browser = await puppeteer.launch({ headless: true});
     const context = await browser.createIncognitoBrowserContext();
     await Promise.all(
         vivoUrls.map(async (vivoUrl: string) => {
             const page = await context.newPage();
+            intercept(page);
             if (!vivoUrl.includes("vivo.sx")) {
                 console.log(`⚠ Skipping ${vivoUrl} because it is not a valid vivo url.`);
                 return;
@@ -43,8 +42,8 @@ async function fetchVideoSources(vivoUrls: string[]): Promise<Video[]> {
             await page.goto(vivoUrl);
             try {
                 await Promise.all([
-                    page.waitForSelector("div.stream-content", {timeout: 60000}),
-                    page.waitForSelector("source", {timeout: 60000}),
+                    page.waitForSelector("div.stream-content", { timeout: 60000 }),
+                    page.waitForSelector("source", { timeout: 60000 }),
                 ]);
             } catch (error) {
                 console.log(`⚠ Skipping ${vivoUrl} because the video could not be found.`);
@@ -96,4 +95,16 @@ async function downloadVideos(videos: Video[], destinationFolder: string = "") {
 
 function stripPath(path: string): string {
     return path.replace(/\/$/, "");
+}
+
+async function intercept(page: Page) {
+    await page.setRequestInterception(true);
+    page.on('request', request => {
+        if (request.resourceType() === 'font' || request.resourceType() === 'image' || request.resourceType() === 'stylesheet') {
+            request.abort();
+            return;
+        }
+        request.continue();
+        return;
+    });
 }
